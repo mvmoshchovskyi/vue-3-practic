@@ -2,13 +2,18 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import directives from '@/directives';
 
 import App from './App.vue'
 import router from './router'
 
-const app = createApp(App)
+const app = createApp(App);
 
-app.use(createPinia())
-app.use(router)
+directives.forEach(directive => {
+  app.directive(directive.name, directive)
+});
 
-app.mount('#app')
+app
+  .use(createPinia())
+  .use(router)
+  .mount('#app');
